@@ -1,2 +1,2 @@
 # Prueba
-Repositorio de PRuebas
+Repositorio de Pruebas
