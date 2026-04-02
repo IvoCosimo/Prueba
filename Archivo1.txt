@@ -1,2 +1,4 @@
 Primer archivo
+Juan
+Pedro
 Santino
