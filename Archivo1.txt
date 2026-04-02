@@ -1,1 +1,3 @@
 Primer archivo
+Juan
+Pedro
