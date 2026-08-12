@@ -1,7 +1,0 @@
-Deudores:
-    Juan
-    Pedro
-    Santino
-    Marcos
-    Eduardo
-    Kylian
