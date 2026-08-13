@@ -1,23 +1,41 @@
+import { Entity, Property, ManyToMany, PrimaryKey} from "@mikro-orm/decorators/legacy";
+import { Collection, Cascade } from "@mikro-orm/core";
+import { BaseEntity } from "../shared/db/baseEntity.entity.js";
+import { Sport } from "../sport/sport.entity.js";
 
-// Definimos los tipos permitidos para evitar errores de tipeo en el código
 export type TipoDocumento = 'DNI' | 'Pasaporte' ;
 export type TipoUsuario = 'Admin' | 'Socio' ;
 
-export class Client {
-    constructor(
-        public name: string,
-        public surname: string,
-        public email: string,
-        public doc: string,
-        public type_doc: TipoDocumento,
-        public password: string, 
-        public birth_date: Date,
-        public type_user: TipoUsuario,
-        public id?: number,
-    ) {
-        // Al usar modificadores de acceso (public, private, protected) 
-        // en los parámetros del constructor, TypeScript hace la asignación 
-        // automáticamente por debajo. 
-        // Ya no necesitás escribir "this.id = id;", el código queda más limpio.
-    }
+@Entity()
+export class Client extends BaseEntity{
+    @PrimaryKey({ type: 'number' })
+    id!: number
+
+@Property({nullable: false })
+    name!: string
+
+    @Property({nullable: false })
+    surname!: string
+
+    @Property({nullable: false, unique: true })
+    email!: string
+
+    @Property({nullable: false, unique: true })
+    doc!: string
+
+    // union types no se infieren con reflect-metadata: hay que declarar el `type` a mano
+    @Property({ nullable: false, type: 'string' })
+    type_doc!: TipoDocumento
+
+    @Property({ nullable: false })
+    password!: string
+
+    @Property({ nullable: false })
+    birth_date!: Date
+
+    @Property({ nullable: false, type: 'string' })
+    type_user!: TipoUsuario
+
+    @ManyToMany(() => Sport, (sport) => sport.clients)
+    sports = new Collection<Sport>(this)
 }

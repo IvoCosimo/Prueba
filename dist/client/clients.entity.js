@@ -1,18 +1,51 @@
-export class Client {
-    constructor(name, surname, email, doc, type_doc, password, birth_date, type_user, id) {
-        this.name = name;
-        this.surname = surname;
-        this.email = email;
-        this.doc = doc;
-        this.type_doc = type_doc;
-        this.password = password;
-        this.birth_date = birth_date;
-        this.type_user = type_user;
-        this.id = id;
-        // Al usar modificadores de acceso (public, private, protected) 
-        // en los parámetros del constructor, TypeScript hace la asignación 
-        // automáticamente por debajo. 
-        // Ya no necesitás escribir "this.id = id;", el código queda más limpio.
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+import { Entity, Property, ManyToMany, PrimaryKey } from "@mikro-orm/decorators/legacy";
+import { Collection } from "@mikro-orm/core";
+import { BaseEntity } from "../shared/db/baseEntity.entity.js";
+import { Sport } from "../sport/sport.entity.js";
+let Client = class Client extends BaseEntity {
+    constructor() {
+        super(...arguments);
+        this.sports = new Collection(this);
     }
-}
+};
+__decorate([
+    PrimaryKey({ type: 'number' })
+], Client.prototype, "id", void 0);
+__decorate([
+    Property({ nullable: false })
+], Client.prototype, "name", void 0);
+__decorate([
+    Property({ nullable: false })
+], Client.prototype, "surname", void 0);
+__decorate([
+    Property({ nullable: false, unique: true })
+], Client.prototype, "email", void 0);
+__decorate([
+    Property({ nullable: false, unique: true })
+], Client.prototype, "doc", void 0);
+__decorate([
+    Property({ nullable: false, type: 'string' })
+], Client.prototype, "type_doc", void 0);
+__decorate([
+    Property({ nullable: false })
+], Client.prototype, "password", void 0);
+__decorate([
+    Property({ nullable: false })
+], Client.prototype, "birth_date", void 0);
+__decorate([
+    Property({ nullable: false, type: 'string' })
+], Client.prototype, "type_user", void 0);
+__decorate([
+    ManyToMany(() => Sport, (sport) => sport.clients)
+], Client.prototype, "sports", void 0);
+Client = __decorate([
+    Entity()
+], Client);
+export { Client };
 //# sourceMappingURL=clients.entity.js.map

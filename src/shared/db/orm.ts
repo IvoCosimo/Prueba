@@ -1,7 +1,11 @@
+import 'reflect-metadata';
 import { MikroORM } from "@mikro-orm/mysql";
+//import { ReflectMetadataProvider } from '@mikro-orm/decorators/legacy';
 import { SqlHighlighter } from "@mikro-orm/sql-highlighter";
+import { TsMorphMetadataProvider } from '@mikro-orm/reflection';
 
 export const orm = await MikroORM.init({
+    metadataProvider: TsMorphMetadataProvider,
     entities: ['dist/**/*.entity.js'],
     entitiesTs: ['src/**/*.entity.ts'],
     dbName: 'club_gestion_socios',
@@ -14,7 +18,6 @@ export const orm = await MikroORM.init({
         ignoreSchema: [],
     }
 })
-
 
 export const syncSchema = async () => {
   const generator = orm.schema

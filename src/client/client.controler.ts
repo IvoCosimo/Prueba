@@ -1,8 +1,6 @@
-import {Request, Response, NextFunction} from "express"
-import { ClientRepository } from "./client.repository.js"
+import { Request, Response, NextFunction } from 'express'
 import { Client } from "./clients.entity.js"
 
-const repository = new ClientRepository
 
 function sanitizeClientInput (req:Request, res:Response, next:NextFunction){ //funcion que actua como middleware
     req.body.sanitizedInput = {

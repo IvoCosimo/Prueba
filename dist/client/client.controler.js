@@ -1,6 +1,3 @@
-import { ClientRepository } from "./client.repository.js";
-import { Client } from "./clients.entity.js";
-const repository = new ClientRepository;
 function sanitizeClientInput(req, res, next) {
     req.body.sanitizedInput = {
         "id": req.body.id,
@@ -72,49 +69,26 @@ function sanitizeClientInput(req, res, next) {
     next();
 }
 async function findAll(_, res) {
-    res.json({ data: await repository.findAll() }); //devuelvo un ARRAY de clientes
+    return res.status(500).send({ message: "Not Implemented" }); //devuelvo un ARRAY de clientes
 }
 ;
 async function findOne(req, res) {
-    const id = String(req.params.id);
-    const client = await repository.findOne({ id }); //La funcion findOne recibe un objeto con atributo id
-    if (client === undefined) {
-        return res.status(404).send({ message: "Client not found" });
-    }
-    else {
-        res.json({ data: client });
-    } //dvuelvo el cliente
+    return res.status(500).send({ message: "Not Implemented" });
 }
 ;
 async function add(req, res) {
     //req.body (puede venir por partes) -> se usa un middleware 
-    //creo un nuevo cliente con la info del body de la request, para esto debo extraer del body SOLO la info que necesito
-    const input = req.body.sanitizedInput; // obtengo solo estos elementos
-    //VALIDAR QUE NO EXISTA YA EL CLIENTE?
-    //creo el cliente sin id
-    const clientInput = new Client(input.name, input.surname, input.email, input.doc, input.type_doc, input.password, input.birth_date, input.type_user);
-    const client = await repository.add(clientInput);
-    //Aca el cliente volveria ya creado con su ID
-    return res.status(201).send({ message: "Client created", data: client }); //devuelvo el cliente
+    return res.status(500).send({ message: "Not Implemented" });
 }
 ;
 //uso la misma funcion para put & patch
 async function update(req, res) {
-    const client = await repository.update(String(req.params.id), req.body.sanitizedInput);
-    if (!client) {
-        return res.status(404).send({ message: "Client not found" });
-    }
-    return res.status(200).send({ message: "client updated successfully", data: client });
+    return res.status(500).send({ message: "Not Implemented" });
 }
 ;
 //Es delete pero ese nombre no deja ponerlo
 async function remove(req, res) {
-    const id = String(req.params.id);
-    const client = await repository.delete({ id }); //La funcion delete recibe un objeto con atributo id
-    if (!client) {
-        return res.status(404).send({ message: "Client not found" });
-    }
-    return res.status(200).send({ message: "Client deleted successfully" });
+    return res.status(500).send({ message: "Not Implemented" });
 }
 export { sanitizeClientInput, findAll, findOne, add, update, remove };
 //# sourceMappingURL=client.controler.js.map
